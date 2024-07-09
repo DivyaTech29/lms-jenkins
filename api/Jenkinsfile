@@ -21,7 +21,7 @@ pipeline {
         stage('Docker Push') {
             steps {
                 sh 'docker push divyadoc29/backend'
-		sh 'docker container run -dt --name api1 -p 3000:3000 divyadoc29/backend'
+		sh 'docker container run -dt --name api -p 3000:3000 divyadoc29/backend'
             }
           }
         stage('Remove old docker images') {
@@ -29,12 +29,6 @@ pipeline {
                 sh 'docker rmi -f divyadoc29/backend'
               }
           }
-        stage('Setup Network and Database') {
-            steps {
-                    sh 'docker network create lms-network || true'
-	      }
-	 }
-	    
         stage('creating database container') {
             steps {
                 sh 'docker container rm --force lmsdb'
