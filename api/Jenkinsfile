@@ -29,6 +29,12 @@ pipeline {
                 sh 'docker rmi -f divyadoc29/backend'
               }
           }
+        stage('Setup Network and Database') {
+            steps {
+                    sh 'docker network create lms-network || true'
+	      }
+	 }
+	    
         stage('creating database container') {
             steps {
                 sh 'docker container rm --force lmsdb'
